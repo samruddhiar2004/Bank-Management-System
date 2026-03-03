@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # The AI Brain (Nervous System)
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+  # The Dashboard (Face)
+  frontend:
+    build: ./frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000
